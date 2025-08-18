@@ -36,38 +36,38 @@ export default function SummaryReport({ summary }: SummaryReportProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-      <Card className="p-6 bg-white/50 backdrop-blur-sm border-white/40">
-        <div className="flex items-center mb-6">
+      <Card className="p-4 sm:p-6 bg-white/50 backdrop-blur-sm border-white/40">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center mb-4 sm:mb-6 gap-2">
           <FileText className="w-6 h-6 mr-2 text-blue-600" />
-          <h3 className="text-xl font-semibold">AI-Generated Summary Report</h3>
+          <h3 className="text-lg sm:text-xl font-semibold">AI-Generated Summary Report</h3>
         </div>
 
         {/* Viability Score */}
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-2">
-            <span className="font-medium text-gray-700">Overall Viability Score</span>
-            <Badge variant="secondary" className="text-lg px-3 py-1">
+        <div className="mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2 gap-2">
+            <span className="font-medium text-gray-700 text-sm sm:text-base">Overall Viability Score</span>
+            <Badge variant="secondary" className="text-base sm:text-lg px-2 sm:px-3 py-1">
               {insights.viability}/100
             </Badge>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-3">
+          <div className="w-full bg-gray-200 rounded-full h-2 sm:h-3">
             <div
-              className="bg-gradient-to-r from-green-500 to-blue-500 h-3 rounded-full transition-all duration-1000"
+              className="bg-gradient-to-r from-green-500 to-blue-500 h-2 sm:h-3 rounded-full transition-all duration-1000"
               style={{ width: `${insights.viability}%` }}
             ></div>
           </div>
         </div>
 
         {/* Main Summary */}
-        <div className="mb-6">
-          <h4 className="font-semibold text-gray-800 mb-3">Executive Summary</h4>
-          <p className="text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-lg">
+        <div className="mb-4 sm:mb-6">
+          <h4 className="font-semibold text-gray-800 mb-2 sm:mb-3 text-base sm:text-lg">Executive Summary</h4>
+          <p className="text-gray-600 leading-relaxed bg-gray-50 p-3 sm:p-4 rounded-lg text-sm sm:text-base">
             {summary}
           </p>
         </div>
 
         {/* Key Insights Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
           {/* Risks */}
           <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
             <div className="flex items-center mb-3">

@@ -29,7 +29,7 @@ interface UserSegmentsProps {
 
 export default function UserSegments({ segments }: UserSegmentsProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
       {segments.map((segment, index) => (
         <motion.div
           key={segment.id}
@@ -37,22 +37,22 @@ export default function UserSegments({ segments }: UserSegmentsProps) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: index * 0.1 }}
         >
-          <Card className="p-6 bg-white/50 backdrop-blur-sm border-white/40 hover:shadow-lg transition-all duration-300">
-            <div className="flex items-center justify-between mb-4">
+          <Card className="p-4 sm:p-6 bg-white/50 backdrop-blur-sm border-white/40 hover:shadow-lg transition-all duration-300">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2">
               <div className="flex items-center">
                 <div className={`w-4 h-4 rounded-full ${segment.color} mr-2`}></div>
-                <h3 className="text-lg font-semibold">{segment.name}</h3>
+                <h3 className="text-base sm:text-lg font-semibold">{segment.name}</h3>
               </div>
-              <Badge variant="outline">{segment.size}% of market</Badge>
+              <Badge variant="outline" className="text-xs sm:text-sm">{segment.size}% of market</Badge>
             </div>
 
             {/* Demographics */}
             <div className="mb-4">
-              <h4 className="font-medium text-gray-700 mb-2 flex items-center">
+              <h4 className="font-medium text-gray-700 mb-2 flex items-center text-sm sm:text-base">
                 <Users className="w-4 h-4 mr-1" />
                 Demographics
               </h4>
-              <div className="grid grid-cols-2 gap-2 text-sm text-gray-600">
+              <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm text-gray-600">
                 <div>
                   <span className="font-medium">Age:</span> {segment.demographics.ageRange}
                 </div>
@@ -63,12 +63,11 @@ export default function UserSegments({ segments }: UserSegmentsProps) {
                   <span className="font-medium">Location:</span> {segment.demographics.location}
                 </div>
               </div>
-              
               <div className="mt-2">
-                <span className="text-sm font-medium text-gray-700">Interests:</span>
+                <span className="text-xs sm:text-sm font-medium text-gray-700">Interests:</span>
                 <div className="flex flex-wrap gap-1 mt-1">
                   {segment.demographics.interests.map((interest, idx) => (
-                    <Badge key={idx} variant="secondary" className="text-xs">
+                    <Badge key={idx} variant="secondary" className="text-[10px] sm:text-xs">
                       {interest}
                     </Badge>
                   ))}
@@ -77,7 +76,7 @@ export default function UserSegments({ segments }: UserSegmentsProps) {
             </div>
 
             {/* Behavior Metrics */}
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center text-sm text-gray-600">
                   <TrendingUp className="w-4 h-4 mr-1 text-green-600" />

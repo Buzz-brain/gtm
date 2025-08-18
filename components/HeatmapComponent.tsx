@@ -19,23 +19,21 @@ interface HeatmapComponentProps {
 
 export default function HeatmapComponent({ data }: HeatmapComponentProps) {
   return (
-    <Card className="p-6 bg-white/50 backdrop-blur-sm border-white/40">
-      <h3 className="text-xl font-semibold mb-4 flex items-center">
+    <Card className="p-4 sm:p-6 bg-white/50 backdrop-blur-sm border-white/40">
+      <h3 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
         <MapPin className="w-5 h-5 mr-2 text-blue-600" />
         Market Adoption Heatmap
       </h3>
-      
       {/* Mock Nigeria Map */}
-      <div className="relative bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg p-8 mb-6">
-        <div className="text-center py-12">
-          <div className="w-64 h-40 mx-auto bg-gradient-to-br from-green-200 to-blue-200 rounded-lg flex items-center justify-center relative overflow-hidden">
+      <div className="relative bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg p-4 sm:p-8 mb-6">
+        <div className="text-center py-8 sm:py-12">
+          <div className="w-full max-w-xs sm:w-64 sm:h-40 h-32 mx-auto bg-gradient-to-br from-green-200 to-blue-200 rounded-lg flex items-center justify-center relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-green-400/20 to-blue-600/40 animate-pulse"></div>
             <div className="z-10 text-center">
               <MapPin className="w-8 h-8 mx-auto mb-2 text-blue-600" />
-              <p className="font-semibold text-blue-900">Nigeria Market Map</p>
-              <p className="text-sm text-blue-700">Adoption Heatmap Visualization</p>
+              <p className="font-semibold text-blue-900 text-base sm:text-lg">Nigeria Market Map</p>
+              <p className="text-xs sm:text-sm text-blue-700">Adoption Heatmap Visualization</p>
             </div>
-            
             {/* Mock Regional Indicators */}
             <div className="absolute top-4 left-8 w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
             <div className="absolute top-8 right-12 w-3 h-3 bg-blue-500 rounded-full animate-pulse delay-300"></div>
@@ -45,7 +43,7 @@ export default function HeatmapComponent({ data }: HeatmapComponentProps) {
       </div>
 
       {/* Regional Breakdown */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {data.regions.map((region, index) => (
           <motion.div
             key={region.name}

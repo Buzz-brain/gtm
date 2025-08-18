@@ -45,16 +45,16 @@ interface ChartsPanelProps {
 
 export default function ChartsPanel({ data }: ChartsPanelProps) {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Adoption vs Churn */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <Card className="p-6 bg-white/50 backdrop-blur-sm border-white/40">
-          <h3 className="text-xl font-semibold mb-4">User Adoption vs Churn Rate</h3>
-          <div className="h-64">
+        <Card className="p-4 sm:p-6 bg-white/50 backdrop-blur-sm border-white/40">
+          <h3 className="text-lg sm:text-xl font-semibold mb-4">User Adoption vs Churn Rate</h3>
+          <div className="h-48 sm:h-64">
             <ResponsiveContainerAny width="100%" height="100%">
               <LineChartAny data={data.adoptionCurve}>
                 <CartesianGridAny strokeDasharray="3 3" opacity={0.3} />
@@ -94,9 +94,9 @@ export default function ChartsPanel({ data }: ChartsPanelProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <Card className="p-6 bg-white/50 backdrop-blur-sm border-white/40">
-          <h3 className="text-xl font-semibold mb-4">Revenue vs Costs Projection</h3>
-          <div className="h-64">
+        <Card className="p-4 sm:p-6 bg-white/50 backdrop-blur-sm border-white/40">
+          <h3 className="text-lg sm:text-xl font-semibold mb-4">Revenue vs Costs Projection</h3>
+          <div className="h-48 sm:h-64">
             <ResponsiveContainerAny width="100%" height="100%">
               <AreaChartAny data={data.revenueProjection}>
                 <CartesianGridAny strokeDasharray="3 3" opacity={0.3} />
