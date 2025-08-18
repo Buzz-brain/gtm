@@ -19,6 +19,20 @@ import {
   Cell,
 } from 'recharts';
 
+// Workaround for recharts/React type incompatibility
+const ResponsiveContainerAny = ResponsiveContainer as any;
+const LineChartAny = LineChart as any;
+const AreaChartAny = AreaChart as any;
+const PieChartAny = PieChart as any;
+const XAxisAny = XAxis as any;
+const YAxisAny = YAxis as any;
+const CartesianGridAny = CartesianGrid as any;
+const TooltipAny = Tooltip as any;
+const LineAny = Line as any;
+const AreaAny = Area as any;
+const PieAny = Pie as any;
+const CellAny = Cell as any;
+
 interface ChartData {
   adoptionCurve: Array<{ month: string; users: number; churn: number }>;
   revenueProjection: Array<{ month: string; revenue: number; costs: number }>;
@@ -41,12 +55,12 @@ export default function ChartsPanel({ data }: ChartsPanelProps) {
         <Card className="p-6 bg-white/50 backdrop-blur-sm border-white/40">
           <h3 className="text-xl font-semibold mb-4">User Adoption vs Churn Rate</h3>
           <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data.adoptionCurve}>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip 
+            <ResponsiveContainerAny width="100%" height="100%">
+              <LineChartAny data={data.adoptionCurve}>
+                <CartesianGridAny strokeDasharray="3 3" opacity={0.3} />
+                <XAxisAny dataKey="month" />
+                <YAxisAny />
+                <TooltipAny 
                   contentStyle={{
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     backdropFilter: 'blur(8px)',
@@ -54,22 +68,22 @@ export default function ChartsPanel({ data }: ChartsPanelProps) {
                     borderRadius: '8px'
                   }}
                 />
-                <Line 
+                <LineAny 
                   type="monotone" 
                   dataKey="users" 
                   stroke="#3B82F6" 
                   strokeWidth={3}
                   name="New Users"
                 />
-                <Line 
+                <LineAny 
                   type="monotone" 
                   dataKey="churn" 
                   stroke="#EF4444" 
                   strokeWidth={3}
                   name="Churn Rate (%)"
                 />
-              </LineChart>
-            </ResponsiveContainer>
+              </LineChartAny>
+            </ResponsiveContainerAny>
           </div>
         </Card>
       </motion.div>
@@ -83,12 +97,12 @@ export default function ChartsPanel({ data }: ChartsPanelProps) {
         <Card className="p-6 bg-white/50 backdrop-blur-sm border-white/40">
           <h3 className="text-xl font-semibold mb-4">Revenue vs Costs Projection</h3>
           <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={data.revenueProjection}>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.3} />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <Tooltip 
+            <ResponsiveContainerAny width="100%" height="100%">
+              <AreaChartAny data={data.revenueProjection}>
+                <CartesianGridAny strokeDasharray="3 3" opacity={0.3} />
+                <XAxisAny dataKey="month" />
+                <YAxisAny />
+                <TooltipAny 
                   contentStyle={{
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     backdropFilter: 'blur(8px)',
@@ -97,7 +111,7 @@ export default function ChartsPanel({ data }: ChartsPanelProps) {
                   }}
                   formatter={(value: number) => [`₦${value.toLocaleString()}`, '']}
                 />
-                <Area
+                <AreaAny
                   type="monotone"
                   dataKey="revenue"
                   stackId="1"
@@ -106,7 +120,7 @@ export default function ChartsPanel({ data }: ChartsPanelProps) {
                   fillOpacity={0.3}
                   name="Revenue"
                 />
-                <Area
+                <AreaAny
                   type="monotone"
                   dataKey="costs"
                   stackId="2"
@@ -115,38 +129,27 @@ export default function ChartsPanel({ data }: ChartsPanelProps) {
                   fillOpacity={0.3}
                   name="Costs"
                 />
-              </AreaChart>
-            </ResponsiveContainer>
+              </AreaChartAny>
+            </ResponsiveContainerAny>
           </div>
-        </Card>
-      </motion.div>
-
-      {/* Market Share */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-      >
-        <Card className="p-6 bg-white/50 backdrop-blur-sm border-white/40">
-          <h3 className="text-xl font-semibold mb-4">Market Segment Distribution</h3>
           <div className="h-64">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
+            <ResponsiveContainerAny width="100%" height="100%">
+              <PieChartAny>
+                <PieAny
                   data={data.marketShare}
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ segment, value }) => `${segment}: ${value}%`}
+                  label={({ segment, value }: { segment: string; value: number }) => `${segment}: ${value}%`}
                   outerRadius={80}
                   fill="#8884d8"
                   dataKey="value"
                 >
                   {data.marketShare.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
+                    <CellAny key={`cell-${index}`} fill={entry.color} />
                   ))}
-                </Pie>
-                <Tooltip 
+                </PieAny>
+                <TooltipAny 
                   contentStyle={{
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     backdropFilter: 'blur(8px)',
@@ -154,8 +157,8 @@ export default function ChartsPanel({ data }: ChartsPanelProps) {
                     borderRadius: '8px'
                   }}
                 />
-              </PieChart>
-            </ResponsiveContainer>
+              </PieChartAny>
+            </ResponsiveContainerAny>
           </div>
         </Card>
       </motion.div>
