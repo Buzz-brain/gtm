@@ -1,0 +1,13 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="simimpact-gradient" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#a21caf"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="8" fill="url(#simimpact-gradient)"/>
+  <g>
+    <path d="M15 4a3 3 0 0 0-3 3v1.342c-.326.09-.646.206-.957.347C9.08 9.36 8 10.97 8 12.75c0 .69.186 1.336.51 1.89A3.001 3.001 0 0 0 8 16c0 1.306.835 2.417 2 2.83V19a3 3 0 0 0 3 3h1v-1.17c.313.11.65.17 1 .17s.687-.06 1-.17V22h1a3 3 0 0 0 3-3v-.17A3.001 3.001 0 0 0 24 16c0-.694-.236-1.332-.51-1.89.324-.554.51-1.2.51-1.89 0-1.78-1.08-3.39-2.043-4.061a5.01 5.01 0 0 0-.957-.347V7a3 3 0 0 0-3-3h-2Z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <path d="M9 17c-1.657 0-3-1.343-3-3 0-1.306.835-2.417 2-2.83V11a3 3 0 0 1 3-3h2v1.17c-.313-.11-.65-.17-1-.17s-.687.06-1 .17V10H9a1 1 0 0 0-1 1v1.17c.313-.11.65-.17 1-.17s.687.06 1 .17V13h2v-1.17c.313.11.65.17 1 .17s.687-.06 1-.17V12h2v1.17c-.313-.11-.65-.17-1-.17s-.687.06-1 .17V15h2v-1.17c.313.11.65.17 1 .17s.687-.06 1-.17V14h2v1.17c-.313-.11-.65-.17-1-.17s-.687.06-1 .17V17h-2v-1.17c-.313.11-.65.17-1 .17s-.687-.06-1-.17V17h-2Z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </g>
+</svg>
