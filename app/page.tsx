@@ -57,7 +57,7 @@ export default function Home() {
               className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto"
             >
               Transform your startup ideas into data-driven insights with AI-powered simulations. 
-              Predict user adoption, analyze market segments, and forecast revenue—all before your first line of code.
+              Predict user adoption, analyze market segments, and forecast revenue, all before your first line of code.
             </motion.p>
 
             <motion.div
