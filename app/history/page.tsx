@@ -26,7 +26,7 @@ export default function History() {
           </p>
         </motion.div>
 
-        <div className="grid gap-6">
+  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {mockHistoryData.map((simulation, index) => (
             <motion.div
               key={simulation.id}
@@ -34,45 +34,41 @@ export default function History() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <Card className="p-6 bg-white/70 backdrop-blur-sm border-white/40 hover:shadow-lg transition-all duration-300">
-                <div className="flex items-start justify-between">
+              <Card className="p-4 sm:p-6 bg-white/70 backdrop-blur-sm border-white/40 hover:shadow-lg transition-all duration-300">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="flex-1">
-                    <div className="flex items-center mb-2">
-                      <Badge variant="outline" className="mr-2">
+                    <div className="flex flex-wrap items-center mb-2 gap-2">
+                      <Badge variant="outline" className="mr-2 text-xs sm:text-sm px-2 py-1">
                         {simulation.category}
                       </Badge>
-                      <div className="flex items-center text-sm text-gray-500">
+                      <div className="flex items-center text-xs sm:text-sm text-gray-500">
                         <Clock className="w-4 h-4 mr-1" />
                         {simulation.timestamp.toLocaleDateString()}
                       </div>
                     </div>
-                    
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2">
                       {simulation.query}
                     </h3>
-                    
-                    <div className="flex items-center space-x-6 text-sm text-gray-600 mb-4">
-                      <div className="flex items-center">
+                    <div className="flex flex-col xs:flex-row xs:items-center xs:space-x-4 space-y-2 xs:space-y-0 text-xs sm:text-sm text-gray-600 mb-4 overflow-x-auto">
+                      <div className="flex items-center min-w-[120px]">
                         <TrendingUp className="w-4 h-4 mr-1 text-green-600" />
                         Adoption: {simulation.metrics.adoption}%
                       </div>
-                      <div className="flex items-center">
+                      <div className="flex items-center min-w-[120px]">
                         <Users className="w-4 h-4 mr-1 text-blue-600" />
                         Target: {simulation.metrics.targetUsers}
                       </div>
-                      <div className="flex items-center">
+                      <div className="flex items-center min-w-[120px]">
                         <span className="w-4 h-4 mr-1 text-purple-600">₦</span>
                         Revenue: {simulation.metrics.projectedRevenue}
                       </div>
                     </div>
-                    
-                    <p className="text-gray-600 line-clamp-2">
+                    <p className="text-gray-600 line-clamp-2 text-xs sm:text-sm">
                       {simulation.summary}
                     </p>
                   </div>
-                  
-                  <div className="ml-4 flex flex-col space-y-2">
-                    <Button variant="outline" size="sm">
+                  <div className="sm:ml-4 flex flex-col space-y-2 w-full sm:w-auto">
+                    <Button variant="outline" size="sm" className="w-full sm:w-auto">
                       <Eye className="w-4 h-4 mr-1" />
                       View Details
                     </Button>
