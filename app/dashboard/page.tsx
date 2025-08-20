@@ -11,17 +11,32 @@ import HeatmapComponent from '@/components/HeatmapComponent';
 import ChartsPanel from '@/components/ChartsPanel';
 import UserSegments from '@/components/UserSegments';
 import SummaryReport from '@/components/SummaryReport';
-import { generateMockResults } from '@/lib/mockData';
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 
 interface SimulationResult {
-  id: string;
-  query: string;
-  timestamp: Date;
-  heatmapData: any;
-  chartData: any;
-  userSegments: any[];
+  adoption_probability: number;
+  churn_risk: number;
+  referral_likelihood: number;
+  regional_heat: { [region: string]: string };
+  adoption_curve: number[];
+  retention_curve: number[];
+  revenue_projection: {
+    month_1: number;
+    month_3: number;
+    month_6: number;
+    month_12: number;
+  };
+  customer_segments: {
+    students: number;
+    working_class: number;
+    entrepreneurs: number;
+  };
+  satisfaction_score: number;
+  break_even_point_months: number;
+  industry_fit: string;
   summary: string;
+  query: string;
 }
 
 export default function Dashboard() {
@@ -40,13 +55,25 @@ export default function Dashboard() {
 
     setIsSimulating(true);
 
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 2000));
 
-    const mockResult = generateMockResults(query);
-    setCurrentResult(mockResult);
-    setIsSimulating(false);
-    setQuery('');
+    try {
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  const response = await fetch(`${apiBaseUrl}/api/simulate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ scenario: query }),
+      });
+      if (!response.ok) throw new Error('Simulation failed');
+  const data = await response.json();
+  setCurrentResult({ ...data, query });
+    } catch (error) {
+      alert('Error running simulation. Please try again.');
+    } finally {
+      setIsSimulating(false);
+      setQuery('');
+    }
 
     // Show modal only on mobile
     if (window.innerWidth < 1024) {
@@ -203,20 +230,62 @@ export default function Dashboard() {
                     </TabsList>
                   </div>
 
+
                   <TabsContent value="heatmap" className="mt-4 sm:mt-6">
-                    <HeatmapComponent data={currentResult.heatmapData} />
+                    <HeatmapComponent
+                      data={{
+                        regions: Object.entries(currentResult.regional_heat).map(([name, heat]) => ({
+                          name,
+                          adoption: heat === "high" ? 0.8 : heat === "medium" ? 0.5 : 0.2,
+                          resistance: heat === "low" ? 0.7 : heat === "medium" ? 0.4 : 0.1,
+                          color: heat === "high" ? "bg-green-500" : heat === "medium" ? "bg-blue-500" : "bg-purple-500"
+                        }))
+                      }}
+                    />
                   </TabsContent>
 
                   <TabsContent value="charts" className="mt-4 sm:mt-6">
-                    <ChartsPanel data={currentResult.chartData} />
+                    <ChartsPanel
+                      data={{
+                        adoptionCurve: currentResult.adoption_curve.map((val, idx) => ({
+                          month: `Month ${idx + 1}`,
+                          users: Math.round(val * 100),
+                          churn: Math.round((currentResult.retention_curve[idx] ? 1 - currentResult.retention_curve[idx] : 0) * 100)
+                        })),
+                        revenueProjection: [
+                          { month: "Month 1", revenue: currentResult.revenue_projection.month_1, costs: 0 },
+                          { month: "Month 3", revenue: currentResult.revenue_projection.month_3, costs: 0 },
+                          { month: "Month 6", revenue: currentResult.revenue_projection.month_6, costs: 0 },
+                          { month: "Month 12", revenue: currentResult.revenue_projection.month_12, costs: 0 }
+                        ],
+                        marketShare: [
+                          { segment: "Students", value: currentResult.customer_segments.students * 100, color: "#3B82F6" },
+                          { segment: "Working Class", value: currentResult.customer_segments.working_class * 100, color: "#10B981" },
+                          { segment: "Entrepreneurs", value: currentResult.customer_segments.entrepreneurs * 100, color: "#F59E42" }
+                        ]
+                      }}
+                    />
                   </TabsContent>
 
                   <TabsContent value="segments" className="mt-4 sm:mt-6">
-                    <UserSegments segments={currentResult.userSegments} />
+                    <UserSegments
+                      segments={[
+                        { id: "students", name: "Students", size: currentResult.customer_segments.students * 100, demographics: { ageRange: "18-25", income: "Low", location: "Urban", interests: ["Education", "Tech"] }, behavior: { adoptionRate: currentResult.adoption_curve[2] * 100, avgSpend: 50, retention: currentResult.retention_curve[2] * 100 }, color: "bg-blue-500" },
+                        { id: "working_class", name: "Working Class", size: currentResult.customer_segments.working_class * 100, demographics: { ageRange: "25-40", income: "Medium", location: "Urban", interests: ["Business", "Finance"] }, behavior: { adoptionRate: currentResult.adoption_curve[3] * 100, avgSpend: 100, retention: currentResult.retention_curve[3] * 100 }, color: "bg-green-500" },
+                        { id: "entrepreneurs", name: "Entrepreneurs", size: currentResult.customer_segments.entrepreneurs * 100, demographics: { ageRange: "30-50", income: "High", location: "Urban", interests: ["Startups", "Networking"] }, behavior: { adoptionRate: currentResult.adoption_curve[4] * 100, avgSpend: 200, retention: currentResult.retention_curve[4] * 100 }, color: "bg-yellow-500" }
+                      ]}
+                    />
                   </TabsContent>
 
                   <TabsContent value="summary" className="mt-4 sm:mt-6">
-                    <SummaryReport summary={currentResult.summary} />
+                    <SummaryReport
+                      adoption_probability={currentResult.adoption_probability}
+                      churn_risk={currentResult.churn_risk}
+                      referral_likelihood={currentResult.referral_likelihood}
+                      regional_heat={currentResult.regional_heat}
+                      summary={currentResult.summary}
+                      query={currentResult.query}
+                    />
                   </TabsContent>
                 </Tabs>
               </Card>
