@@ -6,7 +6,7 @@ import Navigation from '@/components/Navigation';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'SimImpact AI - Simulate Your Startup',
+  title: 'GTM - Simulate Your Startup',
   description: 'Simulate your startup ideas with AI-powered insights, user adoption analysis, and revenue projections.',
 };
 
